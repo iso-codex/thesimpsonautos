@@ -5,55 +5,57 @@ import SuccessAnimation from './SuccessAnimation';
 
 const Footer = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     phone: '',
-    address: ''
+    carType: '',
+    trim: '',
+    purchaseDate: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const carOptions = {
+    'Honda Accord': ['Ex', 'Lx', 'Sport', 'Touring'],
+    'Honda Civic': ['Ex', 'Lx', 'Sport', 'Touring'],
+    'Mercedes Benz': ['C250', 'C300', 'C350']
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    if (name === 'carType') {
+      setFormData({
+        ...formData,
+        carType: value,
+        trim: '' // Reset trim when car type changes
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // EmailJS configuration
-    // Get credentials from environment variables
     const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
     const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-    const recipientEmail = process.env.REACT_APP_RECIPIENT_EMAIL || 'pkosimpson@gmail.com';
 
-    // Debug: Log environment variables (remove in production)
-    console.log('EmailJS Config:', {
-      serviceId: serviceId ? '✓ Set' : '✗ Missing',
-      templateId: templateId ? '✓ Set' : '✗ Missing',
-      publicKey: publicKey ? '✓ Set' : '✗ Missing'
-    });
-
-    // Check if EmailJS is configured
     if (!serviceId || !templateId || !publicKey) {
-      alert('EmailJS is not configured. Please restart the development server after creating the .env file. See README.md for instructions.');
+      alert('EmailJS is not configured. Please check your environment variables.');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // Initialize EmailJS if not already initialized
       if (!emailjs.isInitialized) {
         emailjs.init(publicKey);
       }
 
-      // Template parameters - must match your EmailJS template variables exactly
-      // Based on your template: {{name}}, {{email}}, {{message}}, {{title}}, {{time}}
       const currentTime = new Date().toLocaleString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -63,101 +65,48 @@ const Footer = () => {
         minute: '2-digit'
       });
 
-      // Build message with all contact details
       const messageContent = `A new contact form submission has been received from The Simpsons Autos website.
 
-Name: ${formData.firstName} ${formData.lastName}
+Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Address: ${formData.address}
+Car Type: ${formData.carType}
+Trim: ${formData.trim}
+Purchase Date: ${formData.purchaseDate}
 
 Please respond at your earliest convenience.`;
 
       const templateParams = {
-        name: `${formData.firstName} ${formData.lastName}`,
+        name: formData.name,
         email: formData.email,
-        title: 'The Simpsons Autos',
+        title: 'The Simpsons Autos - Purchase Inquiry',
         time: currentTime,
         message: messageContent
       };
 
-      console.log('=== EmailJS Configuration ===');
-      console.log('Service ID:', serviceId);
-      console.log('Template ID:', templateId);
-      console.log('Public Key:', publicKey ? `${publicKey.substring(0, 10)}...` : 'Missing');
-      console.log('Template Parameters:', templateParams);
-
-      const response = await emailjs.send(
+      await emailjs.send(
         serviceId,
         templateId,
         templateParams,
         publicKey
       );
 
-      console.log('✅ Email sent successfully!', response);
-
-      console.log('Email sent successfully:', response);
-
       setShowSuccess(true);
       setFormData({
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         phone: '',
-        address: ''
+        carType: '',
+        trim: '',
+        purchaseDate: ''
       });
 
       setTimeout(() => {
         setShowSuccess(false);
       }, 3000);
     } catch (error) {
-      console.error('EmailJS Error Details:', {
-        error,
-        text: error.text,
-        status: error.status,
-        serviceId,
-        templateId
-      });
-      
-      let errorMessage = '';
-      
-      // Show actual EmailJS error message first
-      if (error.text) {
-        errorMessage = `EmailJS Error: ${error.text}\n\n`;
-      } else if (error.message) {
-        errorMessage = `Error: ${error.message}\n\n`;
-      }
-      
-      // Add specific guidance based on error status
-      if (error.status === 400) {
-        errorMessage += `Invalid template configuration (Status 400).\n\n` +
-          `Make sure your EmailJS template includes these variables:\n\n` +
-          `• {{name}}\n` +
-          `• {{email}}\n` +
-          `• {{message}}\n` +
-          `• {{title}}\n` +
-          `• {{time}}\n\n` +
-          `The code is sending:\n` +
-          `• name: "${formData.firstName} ${formData.lastName}"\n` +
-          `• email: "${formData.email}"\n` +
-          `• title: "The Simpsons Autos"\n` +
-          `• message: (contact details)\n` +
-          `• time: (current timestamp)\n\n` +
-          `Check browser console (F12) for full details.\n` +
-          `Template ID: ${templateId}`;
-      } else if (error.status === 401) {
-        errorMessage += 'Authentication failed. Please check your public key.';
-      } else if (error.status === 404) {
-        errorMessage += `Service or template not found.\n\n` +
-          `Please verify:\n` +
-          `• Service ID: ${serviceId}\n` +
-          `• Template ID: ${templateId}\n` +
-          `• Both exist in your EmailJS dashboard`;
-      } else {
-        errorMessage += 'Please check your EmailJS configuration and try again.';
-      }
-      
-      alert(errorMessage);
+      console.error('EmailJS Error:', error);
+      alert('Failed to send message. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -188,24 +137,13 @@ Please respond at your earliest convenience.`;
             <div className="form-row">
               <input
                 type="text"
-                name="firstName"
-                placeholder="First"
-                value={formData.firstName}
+                name="name"
+                placeholder="Name"
+                value={formData.name}
                 onChange={handleChange}
                 required
                 className="form-input"
               />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                className="form-input"
-              />
-            </div>
-            <div className="form-row">
               <input
                 type="email"
                 name="email"
@@ -215,6 +153,8 @@ Please respond at your earliest convenience.`;
                 required
                 className="form-input"
               />
+            </div>
+            <div className="form-row">
               <input
                 type="tel"
                 name="phone"
@@ -224,23 +164,50 @@ Please respond at your earliest convenience.`;
                 required
                 className="form-input"
               />
-            </div>
-            <div className="form-row">
               <input
-                type="text"
-                name="address"
-                placeholder="Address"
-                value={formData.address}
+                type="date"
+                name="purchaseDate"
+                placeholder="Purchase Date"
+                value={formData.purchaseDate}
                 onChange={handleChange}
                 required
-                className="form-input form-input-full"
+                className="form-input"
               />
+            </div>
+            <div className="form-row">
+              <select
+                name="carType"
+                value={formData.carType}
+                onChange={handleChange}
+                required
+                className="form-input"
+              >
+                <option value="" disabled>Select Car Type</option>
+                <option value="Honda Accord">Honda Accord</option>
+                <option value="Honda Civic">Honda Civic</option>
+                <option value="Mercedes Benz">Mercedes Benz</option>
+              </select>
+              <select
+                name="trim"
+                value={formData.trim}
+                onChange={handleChange}
+                required
+                className="form-input"
+                disabled={!formData.carType}
+              >
+                <option value="" disabled>Select Trim</option>
+                {formData.carType && carOptions[formData.carType].map(trim => (
+                  <option key={trim} value={trim}>{trim}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-row">
               <button 
                 type="submit" 
                 className="form-submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send'}
+                {isSubmitting ? 'Sending...' : 'Send Inquiry'}
               </button>
             </div>
           </form>
