@@ -13,8 +13,8 @@ const Hero = () => {
         <div className="hero-gradient"></div>
       </div>
       <div className="hero-content">
-        <h1 className="hero-title">LUXURY LIFESTYLE SALES</h1>
-        <p className="hero-subtitle">Enjoy the most luxurious experience.</p>
+        <h1 className="hero-title">AFFORDABLE LIFESTYLE SALES</h1>
+        <p className="hero-subtitle">Enjoy the most stress-free experience.</p>
         <button className="hero-button" onClick={handleDiscover}>
           DISCOVER
         </button>

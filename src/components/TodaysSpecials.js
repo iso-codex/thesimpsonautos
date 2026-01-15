@@ -36,8 +36,8 @@ const TodaysSpecials = () => {
   return (
     <section className="specials-section" id="specials">
       <div className="specials-container">
-        <h2 className="specials-title">TODAYS SPECIALS</h2>
-        <div className="specials-filters">
+        <h2 className="specials-title">The Simpsons Autos Deals</h2>
+        {/* <div className="specials-filters">
           <button 
             className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
@@ -59,7 +59,7 @@ const TodaysSpecials = () => {
             <span className="filter-icon">🏎️</span>
             Luxury
           </button>
-        </div>
+        </div> */}
         <div className="cars-grid">
           {filteredCars.map(car => (
             <div key={car.id} className="car-card">

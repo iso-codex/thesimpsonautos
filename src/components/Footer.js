@@ -10,6 +10,7 @@ const Footer = () => {
     phone: '',
     carType: '',
     trim: '',
+    yearModel: '',
     purchaseDate: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,6 +73,7 @@ Email: ${formData.email}
 Phone: ${formData.phone}
 Car Type: ${formData.carType}
 Trim: ${formData.trim}
+Year Model: ${formData.yearModel}
 Purchase Date: ${formData.purchaseDate}
 
 Please respond at your earliest convenience.`;
@@ -79,6 +81,7 @@ Please respond at your earliest convenience.`;
       const templateParams = {
         name: formData.name,
         email: formData.email,
+        yearModel: formData.yearModel,
         title: 'The Simpsons Autos - Purchase Inquiry',
         time: currentTime,
         message: messageContent
@@ -98,6 +101,7 @@ Please respond at your earliest convenience.`;
         phone: '',
         carType: '',
         trim: '',
+        yearModel: '',
         purchaseDate: ''
       });
 
@@ -200,10 +204,24 @@ Please respond at your earliest convenience.`;
                   <option key={trim} value={trim}>{trim}</option>
                 ))}
               </select>
+              <select
+                name="yearModel"
+                value={formData.yearModel}
+                onChange={handleChange}
+                required
+                className="form-input"
+              >
+                <option value="" disabled>Year Model</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select>
             </div>
             <div className="form-row">
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="form-submit"
                 disabled={isSubmitting}
               >
