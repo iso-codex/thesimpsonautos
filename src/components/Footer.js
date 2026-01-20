@@ -130,10 +130,10 @@ Please respond at your earliest convenience.`;
             <p className="contact-item">pkosimpson@gmail.com</p>
           </div>
           <div className="footer-social">
-            <a href="#" className="social-icon" aria-label="Facebook">📘</a>
-            <a href="#" className="social-icon" aria-label="Twitter">🐦</a>
-            <a href="#" className="social-icon" aria-label="Instagram">📷</a>
-            <a href="#" className="social-icon" aria-label="YouTube">▶️</a>
+            <a href="https://facebook.com" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">📘</a>
+            <a href="https://twitter.com" className="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer">🐦</a>
+            <a href="https://instagram.com" className="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">📷</a>
+            <a href="https://youtube.com" className="social-icon" aria-label="YouTube" target="_blank" rel="noopener noreferrer">▶️</a>
           </div>
         </div>
         <div className="footer-right">
