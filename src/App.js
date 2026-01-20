@@ -1,20 +1,22 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import HomeHero from './components/HomeHero';
+import BrowseByType from './components/BrowseByType';
+import ActionCards from './components/ActionCards';
 import TodaysSpecials from './components/TodaysSpecials';
-import FeaturedSection from './components/FeaturedSection';
-import ServicesSection from './components/ServicesSection';
+import WhyChooseUs from './components/WhyChooseUs';
 import Footer from './components/Footer';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Hero />
+      <HomeHero />
+      <BrowseByType />
+      <ActionCards />
       <TodaysSpecials />
-      <FeaturedSection />
-      <ServicesSection />
+      <WhyChooseUs />
       <Footer />
     </div>
   );

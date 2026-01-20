@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import './Footer.css';
 import SuccessAnimation from './SuccessAnimation';
+import logo from '../images/logo.png';
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -121,8 +122,7 @@ Please respond at your earliest convenience.`;
       <div className="footer-container">
         <div className="footer-left">
           <div className="footer-logo">
-            <span className="logo-icon">🚗</span>
-            <span className="logo-text">THE SIMPSONS AUTOS</span>
+            <img src={logo} alt="The Simpsons Autos" className="footer-logo-image" />
           </div>
           <div className="footer-contact">
             <p className="contact-item">East Legon, Accra</p>

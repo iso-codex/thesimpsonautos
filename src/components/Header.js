@@ -1,13 +1,13 @@
 import React from 'react';
 import './Header.css';
+import logo from '../images/logo.png';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <span className="logo-icon">🚗</span>
-          <span className="logo-text">THE SIMPSONS AUTOS</span>
+          <img src={logo} alt="The Simpsons Autos" className="logo-image" />
         </div>
         <nav className="nav">
           <a href="#home" className="nav-link">Home</a>

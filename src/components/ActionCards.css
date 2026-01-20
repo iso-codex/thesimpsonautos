@@ -1,0 +1,104 @@
+.action-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.action-card {
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    transition: transform 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.buying-card {
+    background-color: var(--accent-blue);
+    /* Light Blue */
+}
+
+.selling-card {
+    background-color: var(--accent-pink);
+    /* Light Pink */
+}
+
+.action-content {
+    z-index: 2;
+    max-width: 60%;
+}
+
+.action-title {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    color: var(--text-dark);
+}
+
+.action-desc {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+}
+
+.buying-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.selling-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.action-icon-wrapper {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .action-container {
+        grid-template-columns: 1fr;
+    }
+
+    .action-card {
+        padding: 30px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .action-icon-wrapper {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .action-content {
+        max-width: 100%;
+    }
+
+    .action-title {
+        font-size: 1.5rem;
+    }
+}
