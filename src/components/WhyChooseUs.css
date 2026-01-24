@@ -45,16 +45,35 @@
 @media (max-width: 992px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+    .choose-section {
+        padding-bottom: 60px;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
 
     .feature-box {
         align-items: center;
         text-align: center;
+        padding: 0 20px;
+    }
+
+    .feature-icon-circle {
+        margin-bottom: 16px;
+    }
+
+    .feature-title {
+        font-size: 1.2rem;
+    }
+
+    .feature-desc {
+        max-width: 400px;
     }
 }

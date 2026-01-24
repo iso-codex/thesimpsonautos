@@ -51,15 +51,24 @@
 
 @media (max-width: 768px) {
     .types-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 12px;
+        justify-content: center;
     }
 
     .type-card {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     .type-icon {
         font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    .type-name {
+        font-size: 0.8rem;
     }
 }

@@ -179,7 +179,18 @@ select.form-input option {
 
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
+  }
+
+  .footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .footer-left {
